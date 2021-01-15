@@ -145,14 +145,18 @@ Steinberg::tresult PLUGIN_API IPlugVST3Controller::setChannelContextInfos(Steinb
 
 bool IPlugVST3Controller::EditorResize(int viewWidth, int viewHeight)
 {
-  if (HasUI())
+  static int count = 0;
+
+  if (count++)
   {
-    if (viewWidth != GetEditorWidth() || viewHeight != GetEditorHeight())
-      mView->Resize(viewWidth, viewHeight);
- 
-    SetEditorSize(viewWidth, viewHeight);
+    if (HasUI())
+    {
+      if (viewWidth != GetEditorWidth() || viewHeight != GetEditorHeight())
+        mView->Resize(viewWidth, viewHeight);
+
+      SetEditorSize(viewWidth, viewHeight);
+    }
   }
-  
   return true;
 }
 

@@ -212,14 +212,19 @@ void IPlugVST3::InformHostOfParameterDetailsChange()
 
 bool IPlugVST3::EditorResize(int viewWidth, int viewHeight)
 {
-  if (HasUI())
-  {
-    if (viewWidth != GetEditorWidth() || viewHeight != GetEditorHeight())
-      mView->Resize(viewWidth, viewHeight);
+  static int count = 0;
 
-    SetEditorSize(viewWidth, viewHeight);
+  if (count++)
+  {
+    if (HasUI())
+    {
+      if (viewWidth != GetEditorWidth() || viewHeight != GetEditorHeight())
+        mView->Resize(viewWidth, viewHeight);
+
+      SetEditorSize(viewWidth, viewHeight);
+    }
   }
-  
+
   return true;
 }
 
