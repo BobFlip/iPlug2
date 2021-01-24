@@ -961,7 +961,7 @@ public:
   IGraphics& operator=(const IGraphics&) = delete;
     
   /** Called by the platform IGraphics class when moving to a new screen to set DPI
-   * @param scale The scale of the display, typically 2 on a macOS retina screen */
+   * @param scale The scale of the screen, typically 2 on a macOS retina screen, or 2 with 200% scaling on windows */
   void SetScreenScale(float scale);
 
   /** Called by some platform IGraphics classes in order to translate the graphics context, in response to e.g. iOS onscreen keyboard appearing */
@@ -1047,11 +1047,11 @@ public:
    * @return A whole number representing the height of the graphics context in pixels on a 1:1 screen */
   int Height() const { return mHeight; }
 
-  /** Gets the width of the graphics context including scaling (not display scaling!)
+  /** Gets the width of the graphics context including draw scaling
    * @return A whole number representing the width of the graphics context with scaling in pixels on a 1:1 screen */
   int WindowWidth() const { return static_cast<int>(static_cast<float>(mWidth) * mDrawScale); }
 
-  /** Gets the height of the graphics context including scaling (not display scaling!)
+  /** Gets the height of the graphics context including draw scaling
    * @return A whole number representing the height of the graphics context with scaling in pixels on a 1:1 screen */
   int WindowHeight() const { return static_cast<int>(static_cast<float>(mHeight) * mDrawScale); }
 
@@ -1063,15 +1063,15 @@ public:
    * @return The scaling applied to the graphics context */
   float GetDrawScale() const { return mDrawScale; }
 
-  /** Gets the display scaling factor
+  /** Gets the screen/display scaling factor, e.g. 2 for a macOS retina screen, 1.5 on Windows when screen is scaled to 150%
     * @return The scale factor of the display on which this graphics context is currently located */
   float GetScreenScale() const { return mScreenScale; }
 
-  /** Gets the display scaling factor, rounded up
-  * @return The scale factor of the display on which this graphics context is currently located */
+  /** Gets the screen/display scaling factor, rounded up
+  * @return The scale factor of the screen/display on which this graphics context is currently located */
   int GetRoundedScreenScale() const { return static_cast<int>(std::ceil(GetScreenScale())); }
 
-  /** Gets the combined screen and display scaling factor
+  /** Gets the combined draw and screen/display scaling factor
   * @return The draw scale * screen scale */
   float GetTotalScale() const { return mDrawScale * mScreenScale; }
 
