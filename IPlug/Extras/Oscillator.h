@@ -45,6 +45,11 @@ public:
   {
     mPhase = phase;
   }
+  
+  double GetPhase()
+  {
+    return mPhase;
+  }
 
 protected:
   double mPhase = 0.;  // float phase (goes between 0. and 1.)
